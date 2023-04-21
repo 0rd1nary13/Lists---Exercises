@@ -4,11 +4,8 @@ import java.util.Arrays;
  * Duplicate entries are allowed.
  * The size of the array doubles until it exceeds the maximum allowed
  * capacity, where upon an exception is thrown.
- *
- * This code is from Chapter 13 of
- * Data Structures and Abstractions with Java 4/e
- * @author Frank M. Carrano
- *
+ *  Created by group: Better Call Stack
+ *  Member: 
  * The toString method is overwritten to give a nice display of the items in
  * the list in this format { <1> <2> <3> <4> }
  * Modification by Charles Hoot
@@ -19,6 +16,7 @@ class AList<T> implements ListInterface<T> {
     private boolean initialized = false;
     private static final int DEFAULT_CAPACITY = 25;
     private static final int MAX_CAPACITY = 10000;
+    /**************************************************************/
     public AList() {
         this(DEFAULT_CAPACITY); // Call next constructor
     } // end default constructor
@@ -53,6 +51,7 @@ class AList<T> implements ListInterface<T> {
                     "whose capacity exceeds " +
                     "allowed maximum.");
     } // end checkCapacity
+
     public void add(T newEntry) {
         checkInitialization();
         list[numberOfEntries+1] = newEntry;
@@ -91,9 +90,20 @@ class AList<T> implements ListInterface<T> {
             throw new IndexOutOfBoundsException("Illegal position given " +
                     "to remove operation.");
     } // end remove
+
     public void clear() {
-        numberOfEntries = 0;
+    numberOfEntries = 0;
     } // end clear
+    public T getEntry(int givenPosition) {
+        checkInitialization();
+        if ((givenPosition >= 1) && (givenPosition <= numberOfEntries)) {
+            assert !isEmpty();
+            return list[givenPosition];
+        } else
+            throw new IndexOutOfBoundsException("Illegal position given to " +
+                    "getEntry operation.");
+    } // end getEntry
+    
     public T replace(int givenPosition, T newEntry) {
         checkInitialization();
         if ((givenPosition >= 1) && (givenPosition <= numberOfEntries)) {
@@ -102,47 +112,51 @@ class AList<T> implements ListInterface<T> {
             list[givenPosition] = newEntry;
             return originalEntry;
         } else
-            throw new IndexOutOfBoundsException("Illegal position given " +
-                    "to replace operation.");
+            throw new IndexOutOfBoundsException("Illegal position given to " +
+                    "replace operation.");
     } // end replace
-    public T getEntry(int givenPosition) {
-        checkInitialization();
-        if ((givenPosition >= 1) && (givenPosition <= numberOfEntries)) {
-            assert !isEmpty();
-            return list[givenPosition];
-        } else
-            throw new IndexOutOfBoundsException("Illegal position give to " +
-                    "getEntry operation.");
-    } // end getEntry
-    public boolean contains(T anEntry) {
-        checkInitialization();
-        boolean found = false;
-        int index = 1;
-        while (!found && (index <= numberOfEntries)) {
-            if (anEntry.equals(list[index])) {
-                found = true;
-            }
-            index++;
-        } // end for
-        return found;
-    } // end contains
-    public int getLength() {
-        return numberOfEntries;
-    } // end getLength
-    public boolean isEmpty() {
-        return numberOfEntries == 0;
-    } // end isEmpty
+    
+    /** Retrieves all entries that are in this list in the order in which
+     they occur in the list.
+     @return A newly allocated array of all the entries in the list.
+     */
     public T[] toArray() {
         checkInitialization();
-// the cast is safe because the new array contains null entries
+// The cast is safe because the new array contains null entries
         @SuppressWarnings("unchecked")
         T[] result = (T[]) new Object[numberOfEntries];
         for (int index = 0; index < numberOfEntries; index++) {
-            result[index] = list[index+1];
-        } // end for
+            result[index] = list[index + 1];
+        } // for loop is copying the list to the result array
         return result;
     } // end toArray
+    /** Sees whether this list contains a given entry.
+     @param anEntry The object that is the desired entry.
+     @return True if the list contains anEntry, or false if not.
+     */
     // Doubles the size of the array list if it is full.
+    public boolean contains(T anEntry) {
+          checkInitialization();
+            boolean found = false;
+            for (int index = 0; index < numberOfEntries; index++) {
+                if (anEntry.equals(list[index+1])) {
+                    found = true;
+                    break;
+                }
+            } // end for
+        return found;
+    } // end contains
+    /** Gets the length of this list.
+     @return The integer number of entries currently in the list.
+     */
+    public int getLength() {
+        return numberOfEntries;
+    } // end getLength
+    
+    public boolean isEmpty() {
+        return numberOfEntries == 0;
+    } // end isEmpty
+    /*********************************************************************/
     private void ensureCapacity() {
         int capacity = list.length - 1;
         if (numberOfEntries >= capacity) {
