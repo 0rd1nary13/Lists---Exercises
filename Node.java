@@ -1,3 +1,9 @@
+/*
+ * Group Name: "Better Call Stack"
+ * Group Members: Linh Pham, Huiguang Ma, Jaya Singh and Vincent Xayasak
+ * Instructor: Mirsaeid Abolghasemi
+ * Date: Apr 20 2023
+ */
 public class Node {
    private int data;
     private Node next;
