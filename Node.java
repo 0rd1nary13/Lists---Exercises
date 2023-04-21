@@ -1,12 +1,10 @@
 public class Node {
    private int data;
     private Node next;
-    private Node prev;
-
+   
     public Node(int data) {
         this.data = data;
         this.next = null;
-        this.prev = null;
     }
 
     public int getData() {
@@ -25,11 +23,4 @@ public class Node {
         this.next = next;
     }
 
-    public Node getPrev() {
-        return prev;
-    }
-
-    public void setPrev(Node prev) {
-        this.prev = prev;
-    }
 }
