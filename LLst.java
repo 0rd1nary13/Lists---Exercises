@@ -1,6 +1,9 @@
 import java.io.*;
 /** A linked implementation of the ADT List.
  *
+ *  Created by group: Better Call Stack
+ *  Member: Linh Pham, Huiguang Ma, Jaya Singh and Vincent Xayasak
+ *  Created on Apr 20 2023
  * This code is from Chapter 14 of
  * Data Structures and Abstractions with Java 4/e
  * @author Frank M. Carrano
