@@ -165,8 +165,9 @@ class LList<T> implements ListInterface<T> {
     private class Node {
         private T data; // entry in bag
         private Node next; // link to next node
-        private Node(T dataPortion) {
-            this(dataPortion, null);
+        private Node(T data) {
+            this.data = data;
+            this.next = null;
         } // end constructor
         private Node(T dataPortion, Node nextNode) {
             data = dataPortion;
@@ -175,14 +176,14 @@ class LList<T> implements ListInterface<T> {
         private T getData() {
             return data;
         } // end getData
-        private void setData(T newData) {
-            data = newData;
+        private void setData(T data) {
+            this.data = data;
         } // end setData
         private Node getNextNode() {
             return next;
         } // end getNextNode
-        private void setNextNode(Node nextNode) {
-            next = nextNode;
+        private void setNextNode(Node next) {
+            this.next = next;
         } // end setNextNode
     } // end Node
     /** Build a string representation of the list.
